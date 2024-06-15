@@ -92,7 +92,7 @@
 
 6. #### **Evaluation Metric**
 
-   ![image-20240613233456322](.\img\image-20240613233456322.png)
+   ![](img/image-20240613233456322.png)
 
 ## Key code:
 
