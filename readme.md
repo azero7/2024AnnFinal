@@ -217,7 +217,7 @@ But both these two function above is using the CPU for back_translation, and the
 
 Limited by the gpu memory, we have to carefully choose the batch_size & the max_workers. Intuitively, I started examining different pair in consideration for both feasibility and speed. After a few experiments, I decide to use (6,6). It costs about 1 second on average for one batch (=6). Arithmetically, it will take no more than 30 minutes which is quite bearable.
 
-![image-20240614201121365](.\img\image-20240614201121365.png)
+![](img/image-20240614201121365.png)
 
 However, nearly 30 minutes endeavoring back-translation doesn't improve that much which equals to the effort that had been made. In a word, improving no more than 0.5, in an other word, 2% better than training on the original train_10k dataset.
 
@@ -274,9 +274,9 @@ def back_translation(data, tokenizer, model, device, batch_size=6, max_workers=6
 
 **And then comes a simple file to find the appropriate truncating length for both English and Chinese.** I searched for the train_100k dataset and find the 95% length of en & zh sentences. The result is showing below:
 
-![image-20240614101810926](.\img\image-20240614101810926.png)
+![](img/image-20240614101810926.png)
 
-![sentence_lengths](.\img\sentence_lengths.png)
+![](img/sentence_lengths.png)
 
 
 
@@ -1110,9 +1110,9 @@ def visualize_attention(model, src_sentence, src_vocab, trg_vocab, device, save_
 
 For using the augmented_train based on train_10k and train_10k itself, there is slightly different, in saving of time, we just use the augmented_train dataset as the representative of them. I will still show the difference after data-preprocessing, you may change the training dataset in the data_preprocess.py main function. 
 
-![image-20240615110300391](.\img\image-20240615110300391.png)
+![](img/image-20240615110300391.png)
 
-![image-20240615110402384](C:\Users\h\Desktop\ANN_FINAL\img\image-20240615110402384.png)
+![](img/image-20240615110402384.png)
 
 
 
@@ -1160,41 +1160,41 @@ And actually when I'm building the framework, I have already tested most of the 
 
 For greedy:
 
-![image-20240615112635419](.\img\image-20240615112635419.png)
+![](img/image-20240615112635419.png)
 
 
 
 And for beam:
 
-![image-20240615114141736](.\img\image-20240615114141736.png)
+![image-20240615114141736](img/image-20240615114141736.png)
 
 
 
 The picture below is the attention visualization for simple input: ["我", "是", "中国", "人"], we may discover it is at the 'guo' position that the model suddenly understands everything, and quickly generates 'I' 'would' 'be' 'China'. The result isn't good enough. Next I will use the 100k dataset to train the model at the same time I shall enjoy my lunch first ).
 
-![image-20240615114836026](.\img\image-20240615114836026.png)
+![image-20240615114836026](img/image-20240615114836026.png)
 
 
 
 We shall use hidden_size = 256 and batch_size = 32 for the 100k dataset in order to no reach out of range of the gpu memory:
 
-![image-20240613234840013](.\img\image-20240613234840013.png)
+![image-20240613234840013](img/image-20240613234840013.png)
 
 
 
 with greedy-search
 
-![image-20240613230057696](.\img\image-20240613230057696.png)
+![image-20240613230057696](img/image-20240613230057696.png)
 
 
 
 with beam-search:
 
-![image-20240615134605910,](.\img\image-20240615134605910.png)
+![image-20240615134605910,](img/image-20240615134605910.png)
 
 And the related attention visualization, quite successful, when it comes to 'wo', the 'I' is light, when  'am' appears, 'am' change from dark blue to green. So do 'zhong guo ren'.
 
-![image-20240615135632519](C:\Users\h\Desktop\ANN_FINAL\img\image-20240615135632519.png)
+![image-20240615135632519](img/image-20240615135632519.png)
 
 ### Experience:
 
